@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class StudentController {
@@ -24,12 +25,14 @@ public class StudentController {
     public StudentDTO showDTO(@RequestParam int num)
     {
         Student student = new Student();
-        student = studentsInterface.findAll().get(num); //test value, will work on getting parameter from input
+        student = studentsInterface.findAll().get(num);
 
         StudentDTO studentDTO = new StudentDTO();
-        StudentDTO.StudentBuilder.studentBuilderWith().id(student.getId()).name(student.getName())
+        DepartmentDTO departmentDTO = new DepartmentDTO();
+
+        studentDTO = StudentDTO.StudentBuilder.studentBuilderWith().id(student.getId()).name(student.getName())
                 .surname(student.getSurname()).dept(DepartmentDTO.deptBuilder.deptBuilderWith()
-                        .id(student.getDept().getDeptId()).build()).build();
+                        .id(student.getDept().getDeptId()).name(student.getDept().getDeptName()).build()).build();
 
         return studentDTO;
     }
@@ -45,6 +48,13 @@ public class StudentController {
     public List<Student> showAllStudents()
     {
         List<Student> users = studentsInterface.findAll();
+        return users;
+    }
+
+    @GetMapping("/findById")
+    public Optional<Student> findById(@RequestParam(value = "id", defaultValue = ("123456")) int id)
+    {
+        var users = studentsInterface.findById(id);
         return users;
     }
 }

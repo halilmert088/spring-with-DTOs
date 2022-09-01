@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class studentsService implements studentsInterface {
@@ -25,5 +26,12 @@ public class studentsService implements studentsInterface {
     public Student getStudent(@RequestParam int num) {
         var users = (List<Student>) studentsRepository.findAll();
         return users.get(num);
+    }
+
+    @Override
+    public Optional<Student> findById(int id)
+    {
+        var users = studentsRepository.findById(id);
+        return users;
     }
 }
