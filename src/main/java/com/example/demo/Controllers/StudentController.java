@@ -31,7 +31,7 @@ public class StudentController {
         DepartmentDTO departmentDTO = new DepartmentDTO();
 
         studentDTO = StudentDTO.StudentBuilder.studentBuilderWith().id(student.getId()).name(student.getName())
-                .surname(student.getSurname()).dept(DepartmentDTO.deptBuilder.deptBuilderWith()
+                .surname(student.getSurname()).phone(student.getPhone()).dept(DepartmentDTO.deptBuilder.deptBuilderWith()
                         .id(student.getDept().getDeptId()).name(student.getDept().getDeptName()).build()).build();
 
         return studentDTO;
