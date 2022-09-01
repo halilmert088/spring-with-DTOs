@@ -1,6 +1,6 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.Databases.Students;
+import com.example.demo.Databases.Student;
 import com.example.demo.Interfaces.studentsInterface;
 import com.example.demo.DTO.*;
 import com.example.demo.Mappers.*;
@@ -21,10 +21,10 @@ public class StudentController {
     @Autowired private StudentMapper studentMapper;
 
     @GetMapping("/showDTO")
-    public StudentDTO getStudent()
+    public StudentDTO showDTO(@RequestParam int num)
     {
-        Students student = new Students();
-        student = studentsInterface.findAll().get(2); //test value, will work on getting parameter from input
+        Student student = new Student();
+        student = studentsInterface.findAll().get(num); //test value, will work on getting parameter from input
 
         StudentDTO studentDTO = new StudentDTO();
         StudentDTO.StudentBuilder.studentBuilderWith().id(student.getId()).name(student.getName())
@@ -32,5 +32,19 @@ public class StudentController {
                         .id(student.getDept().getDeptId()).build()).build();
 
         return studentDTO;
+    }
+
+    @GetMapping("/getStudent")
+    public Student getStudentTest (@RequestParam (value = "num", defaultValue = "2") int num)
+    {
+        var users = (List<Student>) studentsInterface.findAll();
+        return users.get(num);
+    }
+
+    @GetMapping("/showAllStudents")
+    public List<Student> showAllStudents()
+    {
+        List<Student> users = studentsInterface.findAll();
+        return users;
     }
 }

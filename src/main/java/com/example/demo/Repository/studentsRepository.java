@@ -1,9 +1,9 @@
 package com.example.demo.Repository;
 
-import com.example.demo.Databases.Students;
+import com.example.demo.Databases.Student;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface studentsRepository extends CrudRepository<Students, Integer> {
+public interface studentsRepository extends CrudRepository<Student, Integer> {
 }

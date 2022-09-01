@@ -1,6 +1,5 @@
 package com.example.demo.DTO;
 
-import com.example.demo.Databases.Students;
 import lombok.*;
 
 @AllArgsConstructor

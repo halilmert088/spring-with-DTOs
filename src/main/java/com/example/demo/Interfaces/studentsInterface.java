@@ -1,9 +1,10 @@
 package com.example.demo.Interfaces;
 
-import com.example.demo.Databases.Students;
+import com.example.demo.Databases.Student;
 
 import java.util.*;
 
 public interface studentsInterface {
-    List<Students> findAll();
+    List<Student> findAll();
+    Student getStudent(int num);
 }

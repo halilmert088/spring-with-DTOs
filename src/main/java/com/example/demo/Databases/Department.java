@@ -2,14 +2,12 @@ package com.example.demo.Databases;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import com.example.demo.DTO.StudentDTO;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(schema = "public", name = "Departments")
-public class Departments {
+@Table(schema = "public", name = "departments")
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int deptId;
@@ -20,10 +18,10 @@ public class Departments {
     private int facultyId;
 
     @OneToMany(mappedBy = "dept")
-    private Set<Students> students;
+    private Set<Student> students;
 
-    public Departments(){}
-    public Departments(int deptId, String deptName)
+    public Department(){}
+    public Department(int deptId, String deptName)
     {
         this.deptId = deptId;
         this.deptName = deptName;
@@ -54,11 +52,11 @@ public class Departments {
     }
 
     @JsonIgnore
-    public Set<Students> getStudents() {
+    public Set<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Students> students) {
+    public void setStudents(Set<Student> students) {
         this.students = students;
     }
 }

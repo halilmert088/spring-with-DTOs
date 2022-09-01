@@ -1,14 +1,12 @@
 package com.example.demo.Mappers;
 
 import com.example.demo.DTO.*;
-import com.example.demo.Databases.Students;
+import com.example.demo.Databases.Student;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
 
 @Component
 public class StudentMapper {
-    public static StudentDTO map(Students student){
+    public static StudentDTO map(Student student){
         return StudentDTO.StudentBuilder.studentBuilderWith().id(student.getId())
                 .name(student.getName())
                 .surname(student.getSurname())
@@ -17,9 +15,9 @@ public class StudentMapper {
                         .id(student.getDept().getDeptId()).build()).build();
     }
 
-    public Students convertEntity (StudentDTO studentDTO)
+    public Student convertEntity (StudentDTO studentDTO)
     {
-        Students student = new Students();
+        Student student = new Student();
         student.setId(studentDTO.getId());
         student.setName(studentDTO.getName());
         student.setSurname(studentDTO.getSurname());

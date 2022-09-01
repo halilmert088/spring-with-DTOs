@@ -1,6 +1,5 @@
 package com.example.demo.DTO;
-import com.example.demo.Databases.Departments;
-import com.example.demo.Databases.Students;
+import com.example.demo.Databases.Department;
 import com.example.demo.Mappers.StudentMapper;
 import lombok.*;
 
@@ -52,10 +51,10 @@ public class DepartmentDTO {
             return this;
         }
 
-        public Departments convert(DepartmentDTO departmentDTO)
+        public Department convert(DepartmentDTO departmentDTO)
         {
             StudentMapper studentMapper = new StudentMapper();
-            Departments department = new Departments();
+            Department department = new Department();
             department.setDeptId(departmentDTO.getId());
             department.setDeptName(departmentDTO.getName());
             return department;

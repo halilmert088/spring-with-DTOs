@@ -3,15 +3,15 @@ package com.example.demo.Databases;
 import jakarta.persistence.*;
 
 @Entity
-@Table(schema = "public", name = "Students")
-public class Students {
+@Table(schema = "public", name = "students")
+public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
     @JoinColumn(name = "dept_id", nullable = false)
-    private Departments dept;
+    private Department dept;
 
     @Column(name = "phone")
     private int phone;
@@ -20,16 +20,16 @@ public class Students {
     @Column(name = "surname")
     private String surname;
 
-    public Departments getDept() {
+    public Department getDept() {
         return dept;
     }
 
-    public void setDept(Departments dept) {
+    public void setDept(Department dept) {
         this.dept = dept;
     }
 
-    public Students(){}
-    public Students(int id, int phone, String name, String surname)
+    public Student(){}
+    public Student(int id, int phone, String name, String surname)
     {
         this.id = id;
         this.phone = phone;
