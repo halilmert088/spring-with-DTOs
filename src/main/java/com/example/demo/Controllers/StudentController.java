@@ -28,11 +28,11 @@ public class StudentController {
         student = studentsInterface.findAll().get(num);
 
         StudentDTO studentDTO = new StudentDTO();
-        DepartmentDTO departmentDTO = new DepartmentDTO();
+        DepartmentDTO departmentDTO = DepartmentDTO.deptBuilder.deptBuilderWith().name(student.getDept().getDeptName())
+                .id(student.getDept().getDeptId()).build();
 
         studentDTO = StudentDTO.StudentBuilder.studentBuilderWith().id(student.getId()).name(student.getName())
-                .surname(student.getSurname()).phone(student.getPhone()).dept(DepartmentDTO.deptBuilder.deptBuilderWith()
-                        .id(student.getDept().getDeptId()).name(student.getDept().getDeptName()).build()).build();
+                .surname(student.getSurname()).phone(student.getPhone()).dept(departmentDTO).build();
 
         return studentDTO;
     }

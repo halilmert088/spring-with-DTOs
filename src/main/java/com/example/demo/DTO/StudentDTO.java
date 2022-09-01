@@ -1,5 +1,7 @@
 package com.example.demo.DTO;
 
+import com.example.demo.Databases.Department;
+import com.example.demo.Mappers.DepartmentMapper;
 import lombok.*;
 
 @AllArgsConstructor
@@ -59,6 +61,8 @@ public class StudentDTO {
 
         public StudentBuilder dept(DepartmentDTO departmentDTO)
         {
+//            DepartmentMapper dept = new DepartmentMapper();
+  //          this.departmentDTO = dept.map(department);
             this.departmentDTO = departmentDTO;
             return this;
         }
