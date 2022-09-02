@@ -9,9 +9,9 @@ import java.util.*;
 public class DepartmentDTO {
     private int id;
     private String name;
-    private Set<StudentDTO> students;
+    private List<StudentDTO> students;
 
-    public DepartmentDTO(){};
+    public DepartmentDTO(){}
 
     public DepartmentDTO(deptBuilder builder)
     {
@@ -24,7 +24,7 @@ public class DepartmentDTO {
     public static class deptBuilder{
         private int id;
         private String name;
-        private Set<StudentDTO> students;
+        private List<StudentDTO> students;
 
         public deptBuilder() {}
 
@@ -45,7 +45,7 @@ public class DepartmentDTO {
             return this;
         }
 
-        public deptBuilder students(Set<StudentDTO> students)
+        public deptBuilder students(List<StudentDTO> students)
         {
             this.students = students;
             return this;

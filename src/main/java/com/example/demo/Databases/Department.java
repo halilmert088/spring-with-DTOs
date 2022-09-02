@@ -3,6 +3,7 @@ package com.example.demo.Databases;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,7 @@ public class Department {
     private int facultyId;
 
     @OneToMany(mappedBy = "dept")
-    private Set<Student> students;
+    private List<Student> students;
 
     public Department(){}
     public Department(int deptId, String deptName)
@@ -52,11 +53,11 @@ public class Department {
     }
 
     @JsonIgnore
-    public Set<Student> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 }

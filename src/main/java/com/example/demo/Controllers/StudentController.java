@@ -21,7 +21,7 @@ public class StudentController {
 
     @Autowired private StudentMapper studentMapper;
 
-    @GetMapping("/showDTO")
+    @GetMapping("/findAllStudent")
     public StudentDTO showDTO(@RequestParam int num)
     {
         Student student = new Student();
@@ -37,24 +37,24 @@ public class StudentController {
         return studentDTO;
     }
 
-    @GetMapping("/getStudent")
-    public Student getStudentTest (@RequestParam (value = "num", defaultValue = "2") int num)
-    {
-        var users = (List<Student>) studentsInterface.findAll();
-        return users.get(num);
-    }
-
-    @GetMapping("/showAllStudents")
-    public List<Student> showAllStudents()
-    {
-        List<Student> users = studentsInterface.findAll();
-        return users;
-    }
-
-    @GetMapping("/findById")
-    public Optional<Student> findById(@RequestParam(value = "id", defaultValue = ("123456")) int id)
+    @GetMapping("/findStudentById")
+    public StudentDTO findById(@RequestParam(value = "id", defaultValue = ("123456")) int id)
     {
         var users = studentsInterface.findById(id);
-        return users;
+
+        DepartmentDTO departmentDTO = DepartmentDTO.deptBuilder.deptBuilderWith()
+                .name(users.get().getDept().getDeptName())
+                .id(users.get().getDept().getDeptId())
+                .build();
+
+        StudentDTO studentDTO = StudentDTO.StudentBuilder.studentBuilderWith()
+                .id(users.get().getId())
+                .name(users.get().getName())
+                .surname(users.get().getSurname())
+                .phone(users.get().getPhone())
+                .dept(departmentDTO)
+                .build();
+
+        return studentDTO;
     }
 }

@@ -3,7 +3,9 @@ package com.example.demo.Controllers;
 import java.util.*;
 
 import com.example.demo.DTO.DepartmentDTO;
+import com.example.demo.DTO.StudentDTO;
 import com.example.demo.Databases.Department;
+import com.example.demo.Databases.Student;
 import com.example.demo.Interfaces.departmentsInterface;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,28 +25,33 @@ public class DepartmentController {
         return users;
     }
 
-    @GetMapping("/showDeptDto")
-    public List<DepartmentDTO> showDTO()
-    {
-        List<DepartmentDTO> dept = new ArrayList<DepartmentDTO>();
-        List<Department> users = deptInterface.findAll();
-
-        for(int i = 0; i < users.size(); i++)
-        {
-            dept.add(DepartmentDTO.deptBuilder.deptBuilderWith().id(users.get(i).getDeptId())
-                    .name(users.get(i).getDeptName()).build());
-        }
-
-        return dept;
-    }
-
     @GetMapping("/findDeptById")
     public DepartmentDTO findById(@RequestParam(value = "id") int num)
     {
         Optional<Department> dept = deptInterface.findById(num);
 
-        DepartmentDTO dto = DepartmentDTO.deptBuilder.deptBuilderWith().id(dept.get().getDeptId()).
-                name(dept.get().getDeptName()).build();
+        List<StudentDTO> studentDTO = new ArrayList<StudentDTO>();
+        List<Student> students = dept.get().getStudents();
+
+        for (int i = 0; i < students.size(); i++)
+        {
+            StudentDTO temp = new StudentDTO();
+
+            temp = StudentDTO.StudentBuilder.studentBuilderWith()
+                    .name(students.get(i).getName())
+                    .surname(students.get(i).getSurname())
+                    .id(students.get(i).getId())
+                    .phone(students.get(i).getPhone())
+                    .build();
+
+            studentDTO.add(temp);
+            temp = null;
+        }
+
+        DepartmentDTO dto = DepartmentDTO.deptBuilder.deptBuilderWith().id(dept.get().getDeptId())
+                .name(dept.get().getDeptName())
+                .students(studentDTO)
+                .build();
 
         return dto;
     }

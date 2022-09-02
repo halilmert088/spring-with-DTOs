@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 public class DepartmentMapper {
     public DepartmentDTO map(Department department)
     {
-        Set<Student> departmentSet = department.getStudents();
-        Set<StudentDTO> studentDTOList = departmentSet.stream().map(StudentMapper::map).collect(Collectors.toSet());
+        List<Student> departmentSet = department.getStudents();
+        List<StudentDTO> studentDTOList = departmentSet.stream().map(StudentMapper::map).collect(Collectors.toList());
 
         return DepartmentDTO.deptBuilder.deptBuilderWith()
                 .id(department.getDeptId())

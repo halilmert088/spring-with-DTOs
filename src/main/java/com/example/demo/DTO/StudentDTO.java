@@ -23,6 +23,7 @@ public class StudentDTO {
         this.name = studentBuilder.name;
         this.surname = studentBuilder.surname;
         this.phone = studentBuilder.phone;
+        this.departmentDTO = studentBuilder.departmentDTO;
     }
 
     @Getter
@@ -61,8 +62,6 @@ public class StudentDTO {
 
         public StudentBuilder dept(DepartmentDTO departmentDTO)
         {
-//            DepartmentMapper dept = new DepartmentMapper();
-  //          this.departmentDTO = dept.map(department);
             this.departmentDTO = departmentDTO;
             return this;
         }
