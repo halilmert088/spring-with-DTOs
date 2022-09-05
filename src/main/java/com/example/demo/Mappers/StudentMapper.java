@@ -15,7 +15,7 @@ public class StudentMapper {
                         .id(student.getDept().getDeptId()).build()).build();
     }
 
-    public Student convertEntity (StudentDTO studentDTO)
+    public static Student convertEntity (StudentDTO studentDTO)
     {
         Student student = new Student();
         student.setId(studentDTO.getId());

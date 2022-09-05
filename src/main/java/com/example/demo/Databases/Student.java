@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(schema = "public", name = "students")
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @ManyToOne
@@ -29,12 +29,13 @@ public class Student {
     }
 
     public Student(){}
-    public Student(int id, int phone, String name, String surname)
+    public Student(int id, int phone, String name, String surname, Department dept)
     {
         this.id = id;
         this.phone = phone;
         this.name = name;
         this.surname = surname;
+        this.dept = dept;
     }
 
     public int getId() {

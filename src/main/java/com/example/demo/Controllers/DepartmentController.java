@@ -20,9 +20,26 @@ public class DepartmentController {
     private departmentsInterface deptInterface;
 
     @GetMapping("/showDept")
-    public List<Department> showDept(){
+    public List<DepartmentDTO> showDept(){
         var users = (List <Department>) deptInterface.findAll();
-        return users;
+
+        List<DepartmentDTO> dept = new ArrayList<DepartmentDTO>();
+
+        for(int i = 0; i < users.size(); i++)
+        {
+            DepartmentDTO temp = new DepartmentDTO();
+
+            temp = DepartmentDTO.deptBuilder.deptBuilderWith()
+                    .name(users.get(i).getDeptName())
+                    .id(users.get(i).getDeptId())
+                    .build();
+
+            dept.add(temp);
+
+            temp = null; // nullify temp after every DTO build to save from memory
+        }
+
+        return dept;
     }
 
     @GetMapping("/findDeptById")
@@ -30,27 +47,8 @@ public class DepartmentController {
     {
         Optional<Department> dept = deptInterface.findById(num);
 
-        List<StudentDTO> studentDTO = new ArrayList<StudentDTO>();
-        List<Student> students = dept.get().getStudents();
-
-        for (int i = 0; i < students.size(); i++)
-        {
-            StudentDTO temp = new StudentDTO();
-
-            temp = StudentDTO.StudentBuilder.studentBuilderWith()
-                    .name(students.get(i).getName())
-                    .surname(students.get(i).getSurname())
-                    .id(students.get(i).getId())
-                    .phone(students.get(i).getPhone())
-                    .build();
-
-            studentDTO.add(temp);
-            temp = null;
-        }
-
         DepartmentDTO dto = DepartmentDTO.deptBuilder.deptBuilderWith().id(dept.get().getDeptId())
                 .name(dept.get().getDeptName())
-                .students(studentDTO)
                 .build();
 
         return dto;

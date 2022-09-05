@@ -19,7 +19,7 @@ public class DepartmentMapper {
         return DepartmentDTO.deptBuilder.deptBuilderWith()
                 .id(department.getDeptId())
                 .name(department.getDeptName())
-                .students(studentDTOList).build();
+                .build();
     }
 
     public Department convertEntity(DepartmentDTO departmentDTO)

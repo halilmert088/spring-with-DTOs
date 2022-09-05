@@ -9,7 +9,7 @@ import java.util.*;
 public class DepartmentDTO {
     private int id;
     private String name;
-    private List<StudentDTO> students;
+    //private List<StudentDTO> students;
 
     public DepartmentDTO(){}
 
@@ -17,7 +17,7 @@ public class DepartmentDTO {
     {
         this.id = builder.id;
         this.name = builder.name;
-        this.students = builder.students;
+        //this.students = builder.students;
     }
 
     @Getter
@@ -45,11 +45,11 @@ public class DepartmentDTO {
             return this;
         }
 
-        public deptBuilder students(List<StudentDTO> students)
-        {
-            this.students = students;
-            return this;
-        }
+        //public deptBuilder students(List<StudentDTO> students)
+        //{
+        //    this.students = students;
+        //    return this;
+        //}
 
         public Department convert(DepartmentDTO departmentDTO)
         {

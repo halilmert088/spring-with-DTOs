@@ -1,24 +1,31 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Databases.Department;
 import com.example.demo.Databases.Student;
-import com.example.demo.Interfaces.studentsInterface;
+import com.example.demo.Interfaces.*;
 import com.example.demo.DTO.*;
 import com.example.demo.Mappers.*;
 
+import com.example.demo.Repository.studentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
+import java.rmi.ServerException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class StudentController {
 
-    @Autowired
-    private studentsInterface studentsInterface;
+    @Autowired private studentsInterface studentsInterface;
+    @Autowired private studentsRepository studentsRepository;
 
+    @Autowired private departmentsInterface deptInterface;
     @Autowired private StudentMapper studentMapper;
 
     @GetMapping("/findAllStudent")
@@ -56,5 +63,49 @@ public class StudentController {
                 .build();
 
         return studentDTO;
+    }
+
+    @GetMapping("/findStudentByDept")
+    public List<StudentDTO> findByDept(@RequestParam(value = "id") int id)
+    {
+        List<StudentDTO> studentDTO = new ArrayList<StudentDTO>();
+
+        List<Student> students = studentsInterface.findAll();
+
+        for(int i = 0; i < students.size(); i++)
+        {
+            if(students.get(i).getDept().getDeptId() == id) // Check to see if dept id matches with the requested param,
+                                                            // build DTO if it does
+            {
+                StudentDTO temp = new StudentDTO();
+
+                temp = StudentDTO.StudentBuilder.studentBuilderWith()
+                        .name(students.get(i).getName())
+                        .surname(students.get(i).getSurname())
+                        .id(students.get(i).getId())
+                        .phone(students.get(i).getPhone())
+                        .dept(DepartmentDTO.deptBuilder.deptBuilderWith()
+                                .name(students.get(i).getDept().getDeptName())
+                                .id(students.get(i).getDept().getDeptId())
+                                .build())
+                        .build();
+
+                studentDTO.add(temp);
+                temp = null; // to better manage memory
+            }
+        }
+
+        return studentDTO;
+    }
+
+    @PostMapping(path = "/saveStudent", consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Student> create(@RequestBody StudentDTO newStudent)
+    {
+
+
+        Student student = studentsRepository.save(StudentMapper.convertEntity(newStudent));
+
+        return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 }
