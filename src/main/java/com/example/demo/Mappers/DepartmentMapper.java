@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class DepartmentMapper {
-    public DepartmentDTO map(Department department)
+    public static DepartmentDTO map(Department department)
     {
         List<Student> departmentSet = department.getStudents();
         List<StudentDTO> studentDTOList = departmentSet.stream().map(StudentMapper::map).collect(Collectors.toList());
@@ -22,7 +22,7 @@ public class DepartmentMapper {
                 .build();
     }
 
-    public Department convertEntity(DepartmentDTO departmentDTO)
+    public static Department convertEntity(DepartmentDTO departmentDTO)
     {
         Department department = new Department();
         department.setDeptId(departmentDTO.getId());

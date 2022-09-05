@@ -3,10 +3,8 @@ package com.example.demo.Controllers;
 import java.util.*;
 
 import com.example.demo.DTO.DepartmentDTO;
-import com.example.demo.DTO.StudentDTO;
 import com.example.demo.Databases.Department;
-import com.example.demo.Databases.Student;
-import com.example.demo.Interfaces.departmentsInterface;
+import com.example.demo.Interfaces.DepartmentsInterface;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DepartmentController {
 
     @Autowired
-    private departmentsInterface deptInterface;
+    private DepartmentsInterface deptInterface;
 
     @GetMapping("/showDept")
     public List<DepartmentDTO> showDept(){

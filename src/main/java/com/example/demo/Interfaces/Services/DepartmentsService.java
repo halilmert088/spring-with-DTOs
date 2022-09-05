@@ -1,8 +1,8 @@
 package com.example.demo.Interfaces.Services;
 
 import com.example.demo.Databases.Department;
-import com.example.demo.Interfaces.departmentsInterface;
-import com.example.demo.Repository.departmentsRepository;
+import com.example.demo.Interfaces.DepartmentsInterface;
+import com.example.demo.Repository.DepartmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class departmentsService implements departmentsInterface{
+public class DepartmentsService implements DepartmentsInterface {
 
     @Autowired
-    private departmentsRepository deptRepository;
+    private DepartmentsRepository deptRepository;
 
     @Override
     public List<Department> findAll() {

@@ -4,8 +4,7 @@ import com.example.demo.Databases.Student;
 
 import java.util.*;
 
-public interface studentsInterface {
+public interface StudentsInterface {
     List<Student> findAll();
-    Student getStudent(int num);
     Optional<Student> findById(int id);
 }

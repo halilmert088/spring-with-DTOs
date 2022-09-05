@@ -21,6 +21,10 @@ public class Department {
     @OneToMany(mappedBy = "dept")
     private List<Student> students;
 
+    @ManyToOne
+    @JoinColumn(name = "faculty_id", insertable = false, updatable = false)
+    private Faculty faculty;
+
     public Department(){}
     public Department(int deptId, String deptName)
     {

@@ -21,6 +21,7 @@ public class StudentMapper {
         student.setId(studentDTO.getId());
         student.setName(studentDTO.getName());
         student.setSurname(studentDTO.getSurname());
+        student.setPhone(studentDTO.getPhone());
         DepartmentDTO.deptBuilder builder = new DepartmentDTO.deptBuilder();
         student.setDept(builder.convert(studentDTO.getDepartmentDTO()));
         return student;
