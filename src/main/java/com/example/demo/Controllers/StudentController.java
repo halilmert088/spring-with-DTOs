@@ -41,7 +41,7 @@ public class StudentController {
     }
 
     @GetMapping("/findStudentById")
-    public StudentDTO findById(@RequestParam(value = "id", defaultValue = ("123456")) int id)
+    public StudentDTO findById(@RequestParam(value = "id") int id)
     {
         var users = studentsInterface.findById(id);
 
