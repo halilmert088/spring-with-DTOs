@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentMapper {
     public static StudentDTO map(Student student){
-        return StudentDTO.StudentBuilder.studentBuilderWith().id(student.getId())
+        return StudentDTO.builder().id(student.getId())
                 .name(student.getName())
                 .surname(student.getSurname())
                 .phone(student.getPhone())
-                .dept(DepartmentDTO.deptBuilder.deptBuilderWith()
+                .departmentDTO(DepartmentDTO.builder()
                         .id(student.getDept().getDeptId()).build()).build();
     }
 
@@ -22,8 +22,8 @@ public class StudentMapper {
         student.setName(studentDTO.getName());
         student.setSurname(studentDTO.getSurname());
         student.setPhone(studentDTO.getPhone());
-        DepartmentDTO.deptBuilder builder = new DepartmentDTO.deptBuilder();
-        student.setDept(builder.convert(studentDTO.getDepartmentDTO()));
+        DepartmentDTO departmentDTO = new DepartmentDTO();
+        student.setDept(departmentDTO.convert(studentDTO.getDepartmentDTO()));
         return student;
     }
 }

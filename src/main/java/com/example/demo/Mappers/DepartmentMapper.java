@@ -16,7 +16,7 @@ public class DepartmentMapper {
         List<Student> departmentSet = department.getStudents();
         List<StudentDTO> studentDTOList = departmentSet.stream().map(StudentMapper::map).collect(Collectors.toList());
 
-        return DepartmentDTO.deptBuilder.deptBuilderWith()
+        return DepartmentDTO.builder()
                 .id(department.getDeptId())
                 .name(department.getDeptName())
                 .build();

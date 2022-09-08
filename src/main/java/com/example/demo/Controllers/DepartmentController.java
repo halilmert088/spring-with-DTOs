@@ -3,6 +3,7 @@ package com.example.demo.Controllers;
 import java.util.*;
 
 import com.example.demo.DTO.DepartmentDTO;
+import com.example.demo.DTO.FacultyDTO;
 import com.example.demo.Databases.Department;
 import com.example.demo.Interfaces.DepartmentsInterface;
 
@@ -27,9 +28,13 @@ public class DepartmentController {
         {
             DepartmentDTO temp = new DepartmentDTO();
 
-            temp = DepartmentDTO.deptBuilder.deptBuilderWith()
+            temp = DepartmentDTO.builder()
                     .name(users.get(i).getDeptName())
                     .id(users.get(i).getDeptId())
+                    .facultyDTO(FacultyDTO.builder()
+                            .id(users.get(i).getFaculty().getFacultyId())
+                            .name(users.get(i).getFaculty().getFacultyName())
+                            .build())
                     .build();
 
             dept.add(temp);
@@ -45,8 +50,12 @@ public class DepartmentController {
     {
         Optional<Department> dept = deptInterface.findById(num);
 
-        DepartmentDTO dto = DepartmentDTO.deptBuilder.deptBuilderWith().id(dept.get().getDeptId())
+        DepartmentDTO dto = DepartmentDTO.builder().id(dept.get().getDeptId())
                 .name(dept.get().getDeptName())
+                .facultyDTO(FacultyDTO.builder()
+                        .id(dept.get().getFaculty().getFacultyId())
+                        .name(dept.get().getFaculty().getFacultyName())
+                        .build())
                 .build();
 
         return dto;

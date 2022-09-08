@@ -64,4 +64,13 @@ public class Department {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
+
+    @JsonIgnore
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
 }

@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class StudentController {
 
-    @Autowired private StudentsInterface studentsInterface;
+
     @Autowired private StudentsRepository studentsRepository;
 
+    @Autowired private StudentsInterface studentsInterface;
     @Autowired private DepartmentsInterface deptInterface;
     @Autowired private StudentMapper studentMapper;
 
@@ -31,11 +33,11 @@ public class StudentController {
         student = studentsInterface.findAll().get(num);
 
         StudentDTO studentDTO = new StudentDTO();
-        DepartmentDTO departmentDTO = DepartmentDTO.deptBuilder.deptBuilderWith().name(student.getDept().getDeptName())
+        DepartmentDTO departmentDTO = DepartmentDTO.builder().name(student.getDept().getDeptName())
                 .id(student.getDept().getDeptId()).build();
 
-        studentDTO = StudentDTO.StudentBuilder.studentBuilderWith().id(student.getId()).name(student.getName())
-                .surname(student.getSurname()).phone(student.getPhone()).dept(departmentDTO).build();
+        studentDTO = StudentDTO.builder().id(student.getId()).name(student.getName())
+                .surname(student.getSurname()).phone(student.getPhone()).departmentDTO(departmentDTO).build();
 
         return studentDTO;
     }
@@ -45,17 +47,21 @@ public class StudentController {
     {
         var users = studentsInterface.findById(id);
 
-        DepartmentDTO departmentDTO = DepartmentDTO.deptBuilder.deptBuilderWith()
+        DepartmentDTO departmentDTO = DepartmentDTO.builder()
                 .name(users.get().getDept().getDeptName())
                 .id(users.get().getDept().getDeptId())
+                .facultyDTO(FacultyDTO.builder()
+                        .id(users.get().getDept().getFaculty().getFacultyId())
+                        .name(users.get().getDept().getFaculty().getFacultyName())
+                        .build())
                 .build();
 
-        StudentDTO studentDTO = StudentDTO.StudentBuilder.studentBuilderWith()
+        StudentDTO studentDTO = StudentDTO.builder()
                 .id(users.get().getId())
                 .name(users.get().getName())
                 .surname(users.get().getSurname())
                 .phone(users.get().getPhone())
-                .dept(departmentDTO)
+                .departmentDTO(departmentDTO)
                 .build();
 
         return studentDTO;
@@ -74,20 +80,27 @@ public class StudentController {
                                                             // build DTO if it does
             {
                 StudentDTO temp = new StudentDTO();
+                DepartmentDTO temp1 = new DepartmentDTO();
 
-                temp = StudentDTO.StudentBuilder.studentBuilderWith()
+                temp1 = DepartmentDTO.builder()
+                        .name(students.get(i).getDept().getDeptName())
+                        .id(students.get(i).getDept().getDeptId())
+                        .facultyDTO(FacultyDTO.builder()
+                                .id(students.get(i).getDept().getFaculty().getFacultyId())
+                                .name(students.get(i).getDept().getFaculty().getFacultyName())
+                                .build())
+                        .build();
+
+                temp = StudentDTO.builder()
                         .name(students.get(i).getName())
                         .surname(students.get(i).getSurname())
                         .id(students.get(i).getId())
                         .phone(students.get(i).getPhone())
-                        .dept(DepartmentDTO.deptBuilder.deptBuilderWith()
-                                .name(students.get(i).getDept().getDeptName())
-                                .id(students.get(i).getDept().getDeptId())
-                                .build())
+                        .departmentDTO(temp1)
                         .build();
 
                 studentDTO.add(temp);
-                temp = null; // to better manage memory
+                temp = null; temp1 = null; // to better manage memory
             }
         }
 
@@ -100,6 +113,12 @@ public class StudentController {
     {
         Student student = studentsRepository.save(StudentMapper.convertEntity(newStudent));
         return new ResponseEntity<>(student, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/const")
+    public void construct()
+    {
+        Student student = new Student();
     }
 
     @GetMapping("/deleteStudent")

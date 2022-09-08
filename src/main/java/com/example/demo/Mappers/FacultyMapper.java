@@ -16,7 +16,7 @@ public class FacultyMapper {
         List<Department> facultySet = faculty.getDepartments();
         List<DepartmentDTO> departmentsDTOList = facultySet.stream().map(DepartmentMapper::map).collect(Collectors.toList());
 
-        return FacultyDTO.facultyBuilder.facultyBuilderWith()
+        return FacultyDTO.builder()
                 .id(faculty.getFacultyId())
                 .name(faculty.getFacultyName())
                 .build();
@@ -25,7 +25,7 @@ public class FacultyMapper {
     public static Faculty convertEntity(FacultyDTO facultyDTO)
     {
         Faculty faculty = new Faculty();
-        faculty.setFacultyName(facultyDTO.getName());
+        faculty.setFacultyId(facultyDTO.getId());
         faculty.setFacultyName(facultyDTO.getName());
         return faculty;
     }

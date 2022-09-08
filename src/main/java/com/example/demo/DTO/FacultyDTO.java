@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.*;
 
 @Getter
-
+@Builder
 public class FacultyDTO {
     private int id;
 
@@ -14,42 +14,18 @@ public class FacultyDTO {
 
     public FacultyDTO(){}
 
-    public FacultyDTO(facultyBuilder builder)
+    public FacultyDTO(int id, String name)
     {
-        this.id = builder.id;
-        this.name = builder.name;
+        this.id = id;
+        this.name = name;
     }
 
-    @Getter
-    public static class facultyBuilder{
-        private int id;
-        private String name;
-        private List <FacultyDTO> faculties;
-
-        public facultyBuilder(){}
-        public static facultyBuilder facultyBuilderWith(){return new facultyBuilder();}
-
-        public facultyBuilder id(int id)
-        {
-            this.id = id;
-            return this;
-        }
-
-        public facultyBuilder name(String name)
-        {
-            this.name = name;
-            return this;
-        }
-
-        public Faculty convert(FacultyDTO facultyDTO)
-        {
-            DepartmentMapper departmentMapper = new DepartmentMapper();
-            Faculty faculty = new Faculty();
-            faculty.setFacultyId(facultyDTO.getId());
-            faculty.setFacultyName(facultyDTO.getName());
-            return faculty;
-        }
-
-        public FacultyDTO build(){return new FacultyDTO(this);}
+    public Faculty convert(FacultyDTO facultyDTO)
+    {
+        DepartmentMapper departmentMapper = new DepartmentMapper();
+        Faculty faculty = new Faculty();
+        faculty.setFacultyId(facultyDTO.getId());
+        faculty.setFacultyName(facultyDTO.getName());
+        return faculty;
     }
 }
